@@ -2,6 +2,11 @@
   "name": "clouddb-web",
   "version": "0.1.0",
   "private": true,
+  "author": "Daniel Javorszky",
+  "contributors": "Dávid Balatoni <balcsida@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/djavorszky/ddn-web/issues"
+  },
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "datatables.net": "^1.10.16",
