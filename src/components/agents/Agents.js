@@ -1,60 +1,71 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import { Nav, NavItem } from 'reactstrap';
 
 import $ from 'jquery';
 import _ from 'lodash';
 
-const API_LIST_URL = `http://localhost:7010/api/list`;
-
+const API_URL = `http://localhost:7010/api`;
+const API_LIST_URL = `${API_URL}/list`;
 
 export default class Agents extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            anyOnline: false
+            anyOnline: false,
+            failed: false
         }
     }
     
     componentDidMount() {
-        this.fetchAgents()
+        this.fetchAgents();
     }
 
     fetchAgents() {
-        $.getJSON(API_LIST_URL).then((results) => {
-            this.setState({agents: results.map, anyOnline: Object.keys(results.map).length > 0});
+        $.getJSON(API_LIST_URL).then(results => {
+            this.setState({agents: results.map, anyOnline: Object.keys(results.map).length > 0, failed: false});
+        }).fail(() => {
+            this.setState({failed:true});
         });
     }
 
     renderAgent(name) {
         return (
             <NavItem className="btn btn-success disabled btn-sm mx-l" key={name} data-toggle="tooltip" title={name}>{name}</NavItem>
-        );
+        )
     }
     
-    render() {
+    doRender() {
         const agents = this.state.agents
 
+        if (this.state.failed) {
+            return (<NavItem className="btn btn-danger disabled btn-sm mx-l">Can't reach API server</NavItem>);
+        }
+
         if (!agents) {
-            return <div>Checking agent availability</div>;
+            return (<NavItem className="btn btn-warning disabled btn-sm mx-l">Checking agent availability</NavItem>);
         }
 
         if (!this.state.anyOnline) {
-            return (
-                <Nav pills className="justify-content-center">
-                    <NavItem className="btn btn-danger disabled btn-sm mx-l">None of the agents are online</NavItem>
-                </Nav>
-            ) 
+            return (<NavItem className="btn btn-danger disabled btn-sm mx-l">None of the agents are online</NavItem>); 
         }
 
-        const agentList = _.keys(agents)
+        const agentList = _.keys(agents);
 
         return (
-            <Nav pills className="justify-content-center">
+            <div>
                 {agentList.map((name) => {
                     return this.renderAgent(name);
                 })}
+            </div>
+        );
+    }
+
+    render() {
+        return (
+            <Nav pills className="justify-content-center">
+                {this.doRender()}
             </Nav>
-        )
+        );
     }
 }
