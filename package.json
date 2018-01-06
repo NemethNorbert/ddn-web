@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Daniel Javorszky",
-  "contributors": "Dávid Balatoni <balcsida@gmail.com>",
+  "contributors": ["Dávid Balatoni <balcsida@gmail.com>"],
   "bugs": {
     "url": "https://github.com/djavorszky/ddn-web/issues"
   },
