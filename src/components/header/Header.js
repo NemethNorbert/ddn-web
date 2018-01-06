@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Collapse,
+  Container,
   Navbar,
   NavbarToggler,
   NavbarBrand,
@@ -26,8 +27,8 @@ export default class Header extends React.Component {
     return (
       <div>
         <Navbar color="dark" dark expand="md" className="fixed-top">
-          <div className="container">
-              <NavbarBrand href="/"><i className="fa fa-database"></i> CloudDB</NavbarBrand>
+          <Container>
+            <NavbarBrand href="/"><i className="fa fa-database"></i> CloudDB</NavbarBrand>
               <NavbarToggler onClick={this.toggle} />
               <Collapse isOpen={this.state.isOpen} navbar>
                 <Nav className="mr-auto" navbar>
@@ -41,14 +42,14 @@ export default class Header extends React.Component {
                     <NavLink href="/import-database">Import database</NavLink>
                   </NavItem>
                   <NavItem>
-                    <NavLink href="https://github.com/djavorszky/ddn/issues" title="Report bug on GitHub"><i class="fa fa-bug" aria-hidden="true"></i> Bug report</NavLink>
+                    <NavLink href="https://github.com/djavorszky/ddn/issues" title="Report bug on GitHub"><i className="fa fa-bug" aria-hidden="true"></i> Bug report</NavLink>
                   </NavItem>
                 </Nav>
                 <span className="navbar-text">
                   daniel.javorszky@liferay.com (<a href="/logout">logout</a>)
                 </span>
               </Collapse>
-            </div>
+          </Container>
         </Navbar>
       </div>
     );
