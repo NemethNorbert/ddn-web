@@ -6,11 +6,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  NavLink } from 'reactstrap';
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -29,36 +25,30 @@ export default class Header extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="faded" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">Github</NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu >
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-          </Collapse>
+        <Navbar color="dark" dark expand="md" className="fixed-top">
+          <div className="container">
+              <NavbarBrand href="/"><i className="fa fa-database"></i> CloudDB</NavbarBrand>
+              <NavbarToggler onClick={this.toggle} />
+              <Collapse isOpen={this.state.isOpen} navbar>
+                <Nav className="mr-auto" navbar>
+                  <NavItem>
+                    <NavLink href="/">Home</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/create-database">Create database</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="/import-database">Import database</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="https://github.com/djavorszky/ddn/issues" title="Report bug on GitHub"><i class="fa fa-bug" aria-hidden="true"></i> Bug report</NavLink>
+                  </NavItem>
+                </Nav>
+                <span className="navbar-text">
+                  daniel.javorszky@liferay.com (<a href="/logout">logout</a>)
+                </span>
+              </Collapse>
+            </div>
         </Navbar>
       </div>
     );
