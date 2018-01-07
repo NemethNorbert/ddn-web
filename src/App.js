@@ -14,8 +14,6 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import '../node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css';
 import '../node_modules/bootstrap/dist/js/bootstrap';
 
-export const API_URL = "http://localhost:7010/api";
-
 class App extends Component {
   render() {
     return (

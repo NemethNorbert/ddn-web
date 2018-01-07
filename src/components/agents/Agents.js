@@ -4,7 +4,8 @@ import { Nav, NavItem } from 'reactstrap';
 import $ from 'jquery';
 import _ from 'lodash';
 
-const API_URL = `http://localhost:7010/api`;
+import {API_URL} from '../consts'
+
 const API_LIST_URL = `${API_URL}/list`;
 
 export default class Agents extends Component {

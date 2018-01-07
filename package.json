@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "author": "Daniel Javorszky",
-  "contributors": ["Dávid Balatoni <balcsida@gmail.com>"],
+  "contributors": [
+    "Dávid Balatoni <balcsida@gmail.com>"
+  ],
   "bugs": {
     "url": "https://github.com/djavorszky/ddn-web/issues"
   },
@@ -11,6 +13,7 @@
     "bootstrap": "^4.0.0-beta",
     "datatables.net": "^1.10.16",
     "datatables.net-bs4": "latest",
+    "dateformat": "^3.0.2",
     "font-awesome": "latest",
     "popper.js": "^1.12.5",
     "react": "^16.2.0",
