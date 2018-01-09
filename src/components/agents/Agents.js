@@ -4,9 +4,7 @@ import { Nav, NavItem } from 'reactstrap';
 import $ from 'jquery';
 import _ from 'lodash';
 
-import {API_URL} from '../consts'
-
-const API_LIST_URL = `${API_URL}/list`;
+import {API_LIST_URL} from '../consts'
 
 export default class Agents extends Component {
     constructor(props) {
@@ -32,7 +30,7 @@ export default class Agents extends Component {
 
     renderAgent(name) {
         return (
-            <NavItem className="btn btn-success disabled btn-sm mx-l" key={name} data-toggle="tooltip" title={name}>{name}</NavItem>
+            <NavItem className="btn btn-success disabled btn-sm mx-1" key={name} data-toggle="tooltip" title={name}>{name}</NavItem>
         )
     }
     
@@ -40,15 +38,15 @@ export default class Agents extends Component {
         const agents = this.state.agents
 
         if (this.state.failed) {
-            return (<NavItem className="btn btn-danger disabled btn-sm mx-l">Can't reach API server</NavItem>);
+            return (<NavItem className="btn btn-danger disabled btn-sm mx-1">Can't reach API server</NavItem>);
         }
 
         if (!agents) {
-            return (<NavItem className="btn btn-warning disabled btn-sm mx-l">Checking agent availability</NavItem>);
+            return (<NavItem className="btn btn-warning disabled btn-sm mx-1">Checking agent availability</NavItem>);
         }
 
         if (!this.state.anyOnline) {
-            return (<NavItem className="btn btn-danger disabled btn-sm mx-l">None of the agents are online</NavItem>); 
+            return (<NavItem className="btn btn-danger disabled btn-sm mx-1">None of the agents are online</NavItem>); 
         }
 
         const agentList = _.keys(agents);

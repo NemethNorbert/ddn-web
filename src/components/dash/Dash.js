@@ -4,12 +4,9 @@ import DateFormat from 'dateformat';
 import $ from 'jquery';
 import _ from 'lodash';
 
-import {API_URL} from '../consts';
-
-const API_LIST_DBS_URL = `${API_URL}/list-databases`;
+import {API_LIST_DBS_URL} from '../consts';
 
 const DATE_FORMAT = "mmmm d, yyyy"
-
 
 export default class Dash extends Component {
     constructor(props) {
