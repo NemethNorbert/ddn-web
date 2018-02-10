@@ -3,4 +3,3 @@ export const API_LIST_URL = `${API_URL}/agents`;
 export const API_LIST_DBS_URL = `${API_URL}/databases`;
 
 export const USER_EMAIL = "daniel.javorszky@liferay.com";
-

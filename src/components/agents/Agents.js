@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { Nav, NavItem } from 'reactstrap';
 
-import $ from 'jquery';
 
-import {API_LIST_URL, USER_EMAIL} from '../consts';
+import {API_LIST_URL} from '../consts';
+import ajax from '../net'
 
 export default class Agents extends Component {
     constructor(props) {
@@ -20,14 +20,7 @@ export default class Agents extends Component {
     }
 
     fetchAgents() {
-        $.ajax({
-         url: API_LIST_URL,
-         type: "GET",
-         dataType: "json",
-         beforeSend: request => {
-             request.setRequestHeader("Authorization", USER_EMAIL);
-         }
-        }).then(results => {
+        ajax(API_LIST_URL).then(results => {
             this.setState({agents: results.data, anyOnline: true, failed: false});
         }).fail(response => {
             if (response.status === 404) {

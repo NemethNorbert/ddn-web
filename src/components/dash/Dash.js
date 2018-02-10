@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import DateFormat from 'dateformat';
 
-import $ from 'jquery';
-import _ from 'lodash';
+import {API_LIST_DBS_URL} from '../consts';
+import ajax from '../net'
 
-import {API_LIST_DBS_URL, USER_EMAIL} from '../consts';
 
 const DATE_FORMAT = "mmmm d, yyyy"
 
@@ -22,19 +21,11 @@ export default class Dash extends Component {
     }
 
     fetchDatabases() {
-        $.ajax({
-            url: API_LIST_DBS_URL,
-            type: "GET",
-            dataType: "json",
-            beforeSend: request => {
-                request.setRequestHeader("Authorization", USER_EMAIL);
-            }
-           }).then(results => {
-               console.log(results)
-               this.setState({success:true, entries: results.data});
-           }).fail(response => {
-               this.setState({success:false});
-           });
+        ajax(API_LIST_DBS_URL).then(results => {
+            this.setState({success:true, entries: results.data});
+        }).fail(response => {
+            this.setState({success:false});
+        });
     }
 
     render() {
@@ -45,8 +36,6 @@ export default class Dash extends Component {
         if (!this.state.entries) {
             return (<div>Fething entries..</div>)
         }
-
-        const entries = _.values(this.state.entries)
 
         return (
             <div>
@@ -63,7 +52,7 @@ export default class Dash extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {entries.map(entry => {
+                        {this.state.entries.map(entry => {
                             return this.renderRow(entry);
                         })}
                     </tbody>
