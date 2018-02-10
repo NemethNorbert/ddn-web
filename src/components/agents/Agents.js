@@ -3,7 +3,7 @@ import { Nav, NavItem } from 'reactstrap';
 
 import $ from 'jquery';
 
-import {API_LIST_URL} from '../consts';
+import {API_LIST_URL, USER_EMAIL} from '../consts';
 
 export default class Agents extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ export default class Agents extends Component {
          type: "GET",
          dataType: "json",
          beforeSend: request => {
-             request.setRequestHeader("Authorization", "daniel.javorszky@liferay.com");
+             request.setRequestHeader("Authorization", USER_EMAIL);
          }
         }).then(results => {
             this.setState({agents: results.data, anyOnline: true, failed: false});

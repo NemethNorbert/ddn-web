@@ -4,7 +4,7 @@ import DateFormat from 'dateformat';
 import $ from 'jquery';
 import _ from 'lodash';
 
-import {API_LIST_DBS_URL} from '../consts';
+import {API_LIST_DBS_URL, USER_EMAIL} from '../consts';
 
 const DATE_FORMAT = "mmmm d, yyyy"
 
@@ -18,33 +18,32 @@ export default class Dash extends Component {
     }
 
     componentDidMount() {
-        //this.fetchDatabases();
+        this.fetchDatabases();
     }
 
     fetchDatabases() {
-        const email = JSON.stringify({"requester":"daniel.javorszky@liferay.com"});
-        
-        $.post(API_LIST_DBS_URL, email).then(result => {
-            this.setState({
-                success: true,
-                entries: result,
-            })
-        }).fail(() => {
-            this.setState({success: false});
-        })
+        $.ajax({
+            url: API_LIST_DBS_URL,
+            type: "GET",
+            dataType: "json",
+            beforeSend: request => {
+                request.setRequestHeader("Authorization", USER_EMAIL);
+            }
+           }).then(results => {
+               console.log(results)
+               this.setState({success:true, entries: results.data});
+           }).fail(response => {
+               this.setState({success:false});
+           });
     }
 
     render() {
         if (!this.state.success) {
-            return (
-                <div>Something went horribly wrong</div>
-            )
+            return (<div>Something went horribly wrong</div>)
         }
 
         if (!this.state.entries) {
-            return (
-                <div>Fething entries..</div>
-            )
+            return (<div>Fething entries..</div>)
         }
 
         const entries = _.values(this.state.entries)
@@ -80,7 +79,7 @@ export default class Dash extends Component {
                 <td>{entry.agent}</td>
                 <td>{DateFormat(Date.parse(entry.createdate), DATE_FORMAT)}</td>
                 <td>{DateFormat(Date.parse(entry.expirydate), DATE_FORMAT)}</td>
-                <td>{entry.status}</td>
+                <td>{entry.status_label}</td>
                 <td>Actions</td>
             </tr>
         );
