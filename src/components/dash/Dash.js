@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import DateFormat from 'dateformat';
 
-import {API_LIST_DBS_URL} from '../consts';
-import ajax from '../net'
-
-
-const DATE_FORMAT = "mmmm d, yyyy"
+import {API_LIST_DBS_URL, DATE_FORMAT} from '../consts';
+import ActionsGroup from './ActionsGroup';
+import ajax from '../net';
 
 export default class Dash extends Component {
     constructor(props) {
@@ -69,7 +67,7 @@ export default class Dash extends Component {
                 <td>{DateFormat(Date.parse(entry.createdate), DATE_FORMAT)}</td>
                 <td>{DateFormat(Date.parse(entry.expirydate), DATE_FORMAT)}</td>
                 <td>{entry.status_label}</td>
-                <td>Actions</td>
+                <td><ActionsGroup entry={entry}/></td>
             </tr>
         );
     }
