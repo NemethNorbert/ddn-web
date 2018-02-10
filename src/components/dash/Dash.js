@@ -18,7 +18,7 @@ export default class Dash extends Component {
     }
 
     componentDidMount() {
-        this.fetchDatabases();
+        //this.fetchDatabases();
     }
 
     fetchDatabases() {

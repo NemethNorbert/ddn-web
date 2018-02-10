@@ -2,16 +2,15 @@ import React, {Component} from 'react';
 import { Nav, NavItem } from 'reactstrap';
 
 import $ from 'jquery';
-import _ from 'lodash';
 
-import {API_LIST_URL} from '../consts'
+import {API_LIST_URL} from '../consts';
 
 export default class Agents extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            anyOnline: false,
+            anyOnline: true,
             failed: false
         }
     }
@@ -21,19 +20,32 @@ export default class Agents extends Component {
     }
 
     fetchAgents() {
-        $.getJSON(API_LIST_URL).then(results => {
-            this.setState({agents: results.map, anyOnline: Object.keys(results.map).length > 0, failed: false});
-        }).fail(() => {
-            this.setState({failed:true});
+        $.ajax({
+         url: API_LIST_URL,
+         type: "GET",
+         dataType: "json",
+         beforeSend: request => {
+             request.setRequestHeader("Authorization", "daniel.javorszky@liferay.com");
+         }
+        }).then(results => {
+            this.setState({agents: results.data, anyOnline: true, failed: false});
+        }).fail(response => {
+            if (response.status === 404) {
+                this.setState({anyOnline:false, failed:false});
+            }  else {
+                this.setState({failed:true});
+            }
         });
     }
-
-    renderAgent(name) {
-        return (
-            <NavItem className="btn btn-success disabled btn-sm mx-1" key={name} data-toggle="tooltip" title={name}>{name}</NavItem>
-        )
-    }
     
+    render() {
+        return (
+            <Nav pills className="justify-content-center">
+                {this.doRender()}
+            </Nav>
+        );
+    }
+
     doRender() {
         const agents = this.state.agents
 
@@ -41,30 +53,35 @@ export default class Agents extends Component {
             return (<NavItem className="btn btn-danger disabled btn-sm mx-1">Can't reach API server</NavItem>);
         }
 
-        if (!agents) {
-            return (<NavItem className="btn btn-warning disabled btn-sm mx-1">Checking agent availability</NavItem>);
-        }
-
         if (!this.state.anyOnline) {
             return (<NavItem className="btn btn-danger disabled btn-sm mx-1">None of the agents are online</NavItem>); 
         }
 
-        const agentList = _.keys(agents);
+        if (!agents) {
+            return (<NavItem className="btn btn-warning disabled btn-sm mx-1">Checking agent availability</NavItem>);
+        }
 
         return (
             <div>
-                {agentList.map((name) => {
-                    return this.renderAgent(name);
+                {agents.map((agent) => {
+                    return this.renderAgent(agent);
                 })}
             </div>
         );
     }
 
-    render() {
-        return (
-            <Nav pills className="justify-content-center">
-                {this.doRender()}
-            </Nav>
-        );
+    renderAgent(agent) {
+        var buttonClass = "btn disabled btn-sm mx-1 btn-success";
+        var iconClass = "fa fa-fw fa-check";
+
+        if (!agent.agent_up) {
+            buttonClass = "btn disabled btn-sm mx-1 btn-danger";
+            iconClass = "fa fa-fw fa-excalamation-triangle";
+        }
+
+        return(
+            <NavItem className={buttonClass} key={agent.agent_identifier}
+                data-toggle="tooltip" title={agent.agent_long}><i className={iconClass}> </i>{agent.agent}</NavItem>
+        )
     }
 }
