@@ -73,8 +73,9 @@ export default class Agents extends Component {
         }
 
         return(
-            <NavItem className={buttonClass} key={agent.agent_identifier}
-                data-toggle="tooltip" title={agent.agent_long}><i className={iconClass}> </i>{agent.agent}</NavItem>
+            <NavItem className={buttonClass} key={agent.agent_identifier} data-toggle="tooltip" title={agent.agent_long}>
+                <i className={iconClass}> </i>{agent.agent}
+            </NavItem>
         )
     }
 }

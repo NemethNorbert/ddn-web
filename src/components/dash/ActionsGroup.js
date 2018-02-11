@@ -25,20 +25,19 @@ export function DropButton(props) {
         )
 }
 
+export function InfoButton(props) {
+    return (
+        <button className="btn btn-secondary" title="Portal Properties" onClick={props.onClick}>
+            <i className="fa fa-info" aria-hidden="true"></i> 
+        </button>
+    )
+}
+
 
 /*
-    renderInfo() {
-        return (
-            <a className="btn btn-secondary" href="/portalext/1" title="Portal Properties"><i className="fa fa-info" aria-hidden="true"></i> </a>
-        )
-    }
-
     renderRecreate() {
         return (
             <a className="btn btn-secondary" href="/recreate/1" title="Recreate Database"><i className="fa fa-refresh" aria-hidden="true"></i> </a>
         )
     }
-
-    
-}
  */

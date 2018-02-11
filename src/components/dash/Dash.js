@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 
-import { API_LIST_DBS_URL } from '../consts';
 import DashRow from './DashRow';
+import InfoDialog from './InfoDialog';
+
 import ajax from '../net';
+import { API_LIST_DBS_URL } from '../consts';
 
 export default class Dash extends Component {
     constructor(props) {
@@ -10,7 +12,12 @@ export default class Dash extends Component {
 
         this.state = {
             success: true,
+            showModal: false,
+            modalData: {}
         }
+
+        this.modalHandler = this.modalHandler.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     componentDidMount() {
@@ -27,7 +34,7 @@ export default class Dash extends Component {
 
     render() {
         if (!this.state.success) {
-            return (<div>Something went horribly wrong</div>)
+            return (<div>Couldn't reach API server</div>)
         }
 
         if (!this.state.entries) {
@@ -36,6 +43,7 @@ export default class Dash extends Component {
 
         return (
             <div>
+                <InfoDialog showModal={this.state.showModal} data={this.state.modalData} closeModal={this.closeModal} />
                 <h3>Database list</h3>
                 <table className="table table-striped table-hover">
                     <thead>
@@ -50,11 +58,25 @@ export default class Dash extends Component {
                     </thead>
                     <tbody>
                         {this.state.entries.map(entry => 
-                            <DashRow entry={entry} key={entry.id} />
+                            <DashRow entry={entry} key={entry.id} modalHandler={this.modalHandler} />
                         )}
                     </tbody>
                 </table>
             </div>
         );
+    }
+
+    modalHandler(data) {
+        this.setState({
+            showModal: true,
+            modalData: data
+        })
+    }
+
+    closeModal() {
+        this.setState({
+            showModal: false,
+            modalData: {}
+        });
     }
 }
