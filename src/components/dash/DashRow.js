@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import DateFormat from 'dateformat';
-import {sprintf} from 'sprintf-js'
+import {sprintf} from 'sprintf-js';
+import {NotificationManager} from 'react-notifications';
 
 import { DATE_FORMAT, API_EXTEND_DB_URL, MONTHS } from '../consts';
 import ActionsGroup, { ExtendButton } from './ActionsGroup';
@@ -46,11 +47,15 @@ export default class DashRow extends Component {
                 curEntry.expirydate = result.data;
                 
                 this.setState({curEntry});
+
+                NotificationManager.success("Extended the expiry of '" + curEntry.dbname + "' by 1 month", "Success");
+            } else {
+                NotificationManager.error("Failed to extend expiry with message: " + result.data, "Failure");
             }
-            // TODO Add unsuccessful update
+            // TODO Add unsuccessful update handling
         }).fail(reason => {
-            console.log(reason.statusText);
-            // TODO Add failure handling
+            NotificationManager.error("Failed to extend, check console log.", "Failure")
+            console.log(reason);
         })
     }
 }
