@@ -3,8 +3,8 @@ import DateFormat from 'dateformat';
 import {sprintf} from 'sprintf-js';
 import {NotificationManager} from 'react-notifications';
 
-import { DATE_FORMAT, API_EXTEND_DB_URL, MONTHS } from '../consts';
-import ActionsGroup, { ExtendButton } from './ActionsGroup';
+import { DATE_FORMAT, API_EXTEND_DB_URL, MONTHS, API_DELETE_DB_URL } from '../consts';
+import ActionsGroup, { ExtendButton, DropButton } from './ActionsGroup';
 import ajax from '../net';
 
 
@@ -17,10 +17,15 @@ export default class DashRow extends Component {
         }
 
         this.handleExtendEvent = this.handleExtendEvent.bind(this);
+        this.handleDropEvent = this.handleDropEvent.bind(this);
     }
 
     render() {
         const entry = this.state.entry
+
+        if (!entry) {
+            return null;
+        }
 
         return (
             <tr role="row">
@@ -31,7 +36,8 @@ export default class DashRow extends Component {
                 <td>{entry.status_label}</td>
                 <td>
                     <ActionsGroup>
-                        <ExtendButton onClick={this.handleExtendEvent}/>
+                        <ExtendButton onClick={this.handleExtendEvent} />
+                        <DropButton onClick={this.handleDropEvent} />
                     </ActionsGroup>
                 </td>
             </tr>
@@ -54,7 +60,32 @@ export default class DashRow extends Component {
             }
             // TODO Add unsuccessful update handling
         }).fail(reason => {
-            NotificationManager.error("Failed to extend, check console log.", "Failure")
+            NotificationManager.error("Check console log for more information.", "Unable to extend expiry")
+            console.log(reason);
+        })
+    }
+
+    handleDropEvent(e) {
+        const endpoint = sprintf(API_DELETE_DB_URL, this.state.entry.id)
+
+        ajax(endpoint, {type: "DELETE"}).then(result => {
+            if (result.success) {
+                let curEntry = this.state.entry;
+                curEntry.status_label = "Drop in progress";
+                
+                this.setState({curEntry});
+
+                NotificationManager.info("Started dropping the database", "Info");
+            } else {
+                let curEntry = this.state.entry;
+                curEntry.status_label = "Drop failed";
+                
+                this.setState({curEntry});
+
+                NotificationManager.error("Check console log for more information.", "Unable to drop database");
+            }
+        }).fail(reason => {
+            NotificationManager.error("Check console log for more information.", "Unable to drop database")
             console.log(reason);
         })
     }

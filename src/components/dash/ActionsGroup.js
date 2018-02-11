@@ -17,6 +17,14 @@ export function ExtendButton(props) {
     );
 }
 
+export function DropButton(props) {
+        return (
+            <button className="btn btn-danger" title="Drop Database" onClick={props.onClick}>
+                <i className="fa fa-trash" aria-hidden="true"></i> 
+            </button>
+        )
+}
+
 
 /*
     renderInfo() {
@@ -31,10 +39,6 @@ export function ExtendButton(props) {
         )
     }
 
-    renderDrop() {
-        return (
-            <a className="btn btn-danger" href="/drop/1" title="Drop Database"><i className="fa fa-trash" aria-hidden="true"></i> </a>
-        )
-    }
+    
 }
  */

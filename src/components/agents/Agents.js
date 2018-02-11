@@ -69,7 +69,7 @@ export default class Agents extends Component {
 
         if (!agent.agent_up) {
             buttonClass = "btn disabled btn-sm mx-1 btn-danger";
-            iconClass = "fa fa-fw fa-excalamation-triangle";
+            iconClass = "fa fa-fw fa-exclamation-triangle";
         }
 
         return(
