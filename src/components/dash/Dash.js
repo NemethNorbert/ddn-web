@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import DateFormat from 'dateformat';
 
-import {API_LIST_DBS_URL, DATE_FORMAT} from '../consts';
-import ActionsGroup from './ActionsGroup';
+import { API_LIST_DBS_URL } from '../consts';
+import DashRow from './DashRow';
 import ajax from '../net';
 
 export default class Dash extends Component {
@@ -50,27 +49,12 @@ export default class Dash extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.entries.map(entry => {
-                            return this.renderRow(entry);
-                        })}
+                        {this.state.entries.map(entry => 
+                            <DashRow entry={entry} key={entry.id} />
+                        )}
                     </tbody>
                 </table>
             </div>
         );
     }
-
-    renderRow(entry) {
-        return (
-            <tr role="row" key={entry.id}>
-                <td>{entry.dbname}</td>
-                <td>{entry.agent}</td>
-                <td>{DateFormat(Date.parse(entry.createdate), DATE_FORMAT)}</td>
-                <td>{DateFormat(Date.parse(entry.expirydate), DATE_FORMAT)}</td>
-                <td>{entry.status_label}</td>
-                <td><ActionsGroup entry={entry}/></td>
-            </tr>
-        );
-    }
-
-    
 }
