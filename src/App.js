@@ -8,6 +8,7 @@ import Agents from "./components/agents/Agents";
 import Dash from "./components/dash/Dash";
 import Header from "./components/header/Header";
 import Login from "./components/login/Login";
+import Info from "./components/info/Info";
 
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -25,6 +26,7 @@ class App extends Component {
         <Agents />
         <BrowserRouter>
           <Switch>
+            <Route path="/info/:id" component={Info} />
             <Route path="/login" component={Login} />
             <Route path="/" component={Dash} />
           </Switch>

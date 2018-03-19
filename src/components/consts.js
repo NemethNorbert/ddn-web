@@ -6,6 +6,7 @@ export const API_LIST_DBS_URL = `${API_URL}/databases`;
 export const API_EXTEND_DB_URL = `${API_URL}/databases/%d/expiry/extend/%d/%s`;
 export const API_DELETE_DB_URL = `${API_URL}/databases/%d`;
 export const API_ACCESS_INFO_URL = `${API_URL}/databases/%d/accessinfo`;
+export const API_DATABASE_INFO_URL = `${API_URL}/databases/%d`;
 
 export const DAYS = "days";
 export const MONTHS = "months";

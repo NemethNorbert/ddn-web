@@ -7,14 +7,15 @@ import {
   DATE_FORMAT,
   API_EXTEND_DB_URL,
   MONTHS,
-  API_DELETE_DB_URL,
-  API_ACCESS_INFO_URL
+  API_DELETE_DB_URL
 } from "../consts";
+
 import ActionsGroup, {
   ExtendButton,
   DropButton,
   InfoButton
 } from "./ActionsGroup";
+
 import ajax from "../net";
 
 export default class DashRow extends Component {
@@ -26,7 +27,6 @@ export default class DashRow extends Component {
     };
 
     this.handleExtendEvent = this.handleExtendEvent.bind(this);
-    this.handleInfoEvent = this.handleInfoEvent.bind(this);
     this.handleDropEvent = this.handleDropEvent.bind(this);
   }
 
@@ -47,7 +47,7 @@ export default class DashRow extends Component {
         <td>
           <ActionsGroup>
             <ExtendButton onClick={this.handleExtendEvent} />
-            <InfoButton onClick={this.handleInfoEvent} />
+            <InfoButton id={entry.id} />
             <DropButton onClick={this.handleDropEvent} />
           </ActionsGroup>
         </td>
@@ -82,30 +82,6 @@ export default class DashRow extends Component {
         NotificationManager.error(
           "Check console log for more information.",
           "Unable to extend expiry"
-        );
-        console.log(reason);
-      });
-  }
-
-  handleInfoEvent() {
-    const endpoint = sprintf(API_ACCESS_INFO_URL, this.state.entry.id);
-
-    ajax(endpoint)
-      .then(result => {
-        if (result.success) {
-          this.props.modalHandler(result.data);
-        } else {
-          NotificationManager.error(
-            "Reason: " + result.data,
-            "Unable to fetch access information"
-          );
-          console.log(result.data);
-        }
-      })
-      .fail(reason => {
-        NotificationManager.error(
-          "Check console log for more information.",
-          "Unable to fetch access information"
         );
         console.log(reason);
       });

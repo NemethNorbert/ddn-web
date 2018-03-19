@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function(props) {
   return (
@@ -36,14 +37,12 @@ export function DropButton(props) {
 }
 
 export function InfoButton(props) {
+  const href = `/info/${props.id}`;
+
   return (
-    <button
-      className="btn btn-secondary"
-      title="Portal Properties"
-      onClick={props.onClick}
-    >
+    <Link to={href} className="btn btn-secondary">
       <i className="fa fa-info" aria-hidden="true" />
-    </button>
+    </Link>
   );
 }
 

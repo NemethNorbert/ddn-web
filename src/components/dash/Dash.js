@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import DashRow from "./DashRow";
-import InfoDialog from "./InfoDialog";
 
 import ajax from "../net";
 import { API_LIST_DBS_URL } from "../consts";
@@ -45,11 +44,6 @@ export default class Dash extends Component {
 
     return (
       <div>
-        <InfoDialog
-          showModal={this.state.showModal}
-          data={this.state.modalData}
-          closeModal={this.closeModal}
-        />
         <h3>Database list</h3>
         <table className="table table-striped table-hover">
           <thead>
