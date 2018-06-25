@@ -1,4 +1,6 @@
-export const API_URL = "http://localhost:7010/api";
+export const WS_URL = "ws://localhost:7010/ws";
+
+export const API_URL = "http://cloud-db.liferay.int/api";
 export const API_LIST_URL = `${API_URL}/agents`;
 export const API_LIST_DBS_URL = `${API_URL}/databases`;
 

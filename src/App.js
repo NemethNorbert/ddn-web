@@ -4,6 +4,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
 import { NotificationContainer } from "react-notifications";
 
+import WSocket from "./components/ws/Ws";
 import Agents from "./components/agents/Agents";
 import Dash from "./components/dash/Dash";
 import Header from "./components/header/Header";
@@ -21,6 +22,7 @@ class App extends Component {
   render() {
     return (
       <Container>
+        <WSocket />
         <Header />
         <NotificationContainer />
         <Agents />
